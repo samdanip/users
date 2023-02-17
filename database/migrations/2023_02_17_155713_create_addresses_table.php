@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employees_id')->constrained();
             $table->string('address1');
-            $table->string('address2');
-            $table->string('city');
+            $table->string('address2')->nullable();
             $table->string('district');
             $table->string('state');
             $table->timestamps();

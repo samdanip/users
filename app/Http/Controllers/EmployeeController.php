@@ -30,7 +30,20 @@ class EmployeeController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        dd($request);
+        $validated = $request->validate([
+            'fullname' => ['required', 'min:3'],
+            'age' => ['required'],
+        ]);
+        $employee = new Employee();
+        $employee->title = $request->title;
+        $employee->fullname = $request->fullname;
+        $employee->gender = $request->gender;
+        $employee->age = $request->age;
+        $employee->email = $request->email;
+        $employee->save();
+
+        return redirect('dashboard')->with('status', 'Saved Successfully');
     }
 
     /**
