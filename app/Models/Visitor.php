@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Address;
 
-class Employee extends Model
+class Visitor extends Model
 {
     use HasFactory;
 
-    public function addresses(): HasMany
+    public function locations(): HasMany
     {
-        return $this->hasMany(Address::class);
+        return $this->hasMany(Location::class);
     }
 }

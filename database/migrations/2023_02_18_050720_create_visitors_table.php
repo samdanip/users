@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('visitors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employees_id')->constrained();
-            $table->string('address1');
-            $table->string('address2')->nullable();
-            $table->string('district');
-            $table->string('state');
+            $table->enum('title', ['Mr.', 'Mrs.']);
+            $table->string('fullname');
+            $table->enum('gender', ['Male', 'Female']);
+            $table->integer('age');
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('visitors');
     }
 };

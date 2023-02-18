@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
+use App\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class AddressController extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +36,7 @@ class AddressController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Address $address): Response
+    public function show(Location $location): Response
     {
         //
     }
@@ -44,7 +44,7 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Address $address): Response
+    public function edit(Location $location): Response
     {
         //
     }
@@ -52,7 +52,7 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Address $address): RedirectResponse
+    public function update(Request $request, Location $location): RedirectResponse
     {
         //
     }
@@ -60,7 +60,7 @@ class AddressController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Address $address): RedirectResponse
+    public function destroy(Location $location): RedirectResponse
     {
         //
     }
