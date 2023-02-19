@@ -7,17 +7,15 @@ use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Database\Eloquent\Builder;
 
 class VisitorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
-    {
-        //
-    }
+    // public function index(): Response
+    // {
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -61,17 +59,16 @@ class VisitorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Visitor $visitor): Response
-    {
-        //
-    }
+    // public function show(Visitor $visitor): Response
+    // {
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Visitor $visitor): Response
     {
-        $visitors = Visitor::with('locations')->where('id', $visitor->id)->get();
+//        $visitors = Visitor::with('locations')->where('id', $visitor->id)->get();
         return response(view('employee.edit')->with('visitor', $visitor));
     }
 
@@ -80,14 +77,26 @@ class VisitorController extends Controller
      */
     public function update(Request $request, Visitor $visitor): RedirectResponse
     {
-        $employee = Visitor::with('locations')->find($visitor->id);
-        dd($employee);
+        $employee = Visitor::find($visitor->id);
         $employee->title = $request->title;
         $employee->fullname = $request->fullname;
         $employee->gender = $request->gender;
         $employee->age = $request->age;
         $employee->email = $request->email;
-        // $employee->save();
+        $employee->save();
+        if (isset($request->address1)) {
+            $address = Location::where('visitor_id', $visitor->id);
+            $address->delete();
+            for ($i = 0; $i < sizeof($request->address1); $i++) {
+                $address = new Location();
+                $address->visitor_id = $employee->id;
+                $address->address1 = $request->address1[$i];
+                $address->address2 = $request->address2[$i];
+                $address->district = $request->district[$i];
+                $address->state = $request->state[$i];
+                $address->save();
+            }
+        }
         return redirect('dashboard')->with('status', 'Updated Successfully');
     }
 
@@ -96,6 +105,8 @@ class VisitorController extends Controller
      */
     public function destroy(Visitor $visitor): RedirectResponse
     {
-        //
+        $employee = Visitor::with('locations')->find($visitor->id);
+        $employee->delete();
+        return redirect('dashboard')->with('status', 'Deleted Successfully');
     }
 }
